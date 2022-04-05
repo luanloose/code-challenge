@@ -1,0 +1,17 @@
+# Packages
+vendor/
+
+# IDE
+.idea/
+.vscode/
+
+# Envs
+.env
+
+# PhpUnit
+.phpunit.cache/
+.phpunit.result.cache
+phpunit.report.xml
+phpunit.coverage.xml
+
+.DS_Store
