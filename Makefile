@@ -1,7 +1,7 @@
 green=\033[0;32m
 no_color=\033[0m
 
-app=app.code-challenge.dev
+app=app.code-challenge
 
 up:
 	@ docker-compose up -d
@@ -20,10 +20,10 @@ composer:
 	@ echo "\n$(green)Composer installed$(no_color)\n\n"
 
 phpunit:
-	@ docker exec -it $(app) vendor/bin/phpunit --testdox --coverage-html ./storage/_reports/coverage/
+	@ docker exec -it $(app) vendor/bin/phpunit --testdox --coverage-html ./_reports/coverage/ ./tests
 
 phpunit-filter:
-	@ docker exec -it $(app) vendor/bin/phpunit --testdox --coverage-html ./storage/_reports/coverage/ --filter $(filter-out $@,$(MAKECMDGOALS))
+	@ docker exec -it $(app) vendor/bin/phpunit --testdox --coverage-html ./storage/_reports/coverage/ --filter $(filter-out $@,$(MAKECMDGOALS)) ./tests
 
 bash:
 	@ docker-compose up -d
