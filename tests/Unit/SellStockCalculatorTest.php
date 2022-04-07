@@ -7,9 +7,9 @@ use Challenge\Domain\Entities\Transaction;
 use Challenge\Domain\Enums\OperationType;
 use Challenge\Domain\Services\SellStockCalculator;
 use JetBrains\PhpStorm\ArrayShape;
-use PHPUnit\Framework\TestCase;
+use Tests\BaseTest;
 
-Class SellStockCalculatorTest extends TestCase
+Class SellStockCalculatorTest extends BaseTest
 {
     /**
      * @test

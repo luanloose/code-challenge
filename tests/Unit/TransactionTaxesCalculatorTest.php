@@ -6,9 +6,9 @@ use Challenge\Domain\Entities\Transaction;
 use Challenge\Domain\Enums\OperationType;
 use Challenge\Domain\Services\TransactionTaxesCalculator;
 use JetBrains\PhpStorm\ArrayShape;
-use PHPUnit\Framework\TestCase;
+use Tests\BaseTest;
 
-Class TransactionTaxesCalculatorTest extends TestCase
+Class TransactionTaxesCalculatorTest extends BaseTest
 {
     /**
      * @test
