@@ -32,3 +32,6 @@ bash:
 php:
 	@ docker-compose up -d
 	@ docker exec -it $(app) php bash
+
+run:
+	@ docker exec -it $(app) php index.php
