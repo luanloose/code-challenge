@@ -15,18 +15,18 @@ class TransactionTaxesCalculator
     ) {
     }
 
-    public function process(array $transactions): array
+    public function calculate(array $transactions): array
     {
         $stockSummary = new StockSummary();
         $taxes = [];
         foreach ($transactions as $transaction) {
-            $taxes[] = $this->calculate($transaction, $stockSummary);
+            $taxes[] = $this->calculateTaxes($transaction, $stockSummary);
         }
 
         return $taxes;
     }
 
-    private function calculate(Transaction $transaction, StockSummary $stockSummary): Tax
+    private function calculateTaxes(Transaction $transaction, StockSummary $stockSummary): Tax
     {
         return match ($transaction->operation) {
             OperationType::Buy => $this->buyStockCalculator->calculate($transaction, $stockSummary),

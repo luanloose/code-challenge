@@ -34,8 +34,8 @@ Class TransactionTaxesCalculatorTest extends BaseTest
         $transactionsTaxes = new TransactionTaxesCalculator();
 
         # EXECUTE
-        $taxesOne = $transactionsTaxes->process($transactionsOne);
-        $taxesTwo = $transactionsTaxes->process($transactionsTwo);
+        $taxesOne = $transactionsTaxes->calculate($transactionsOne);
+        $taxesTwo = $transactionsTaxes->calculate($transactionsTwo);
 
         $this->toArrayTaxes($taxesOne);
         $this->toArrayTaxes($taxesTwo);
@@ -73,7 +73,7 @@ Class TransactionTaxesCalculatorTest extends BaseTest
         $transactionsTaxes = new TransactionTaxesCalculator();
 
         # EXECUTE
-        $taxes = $transactionsTaxes->process($transactions);
+        $taxes = $transactionsTaxes->calculate($transactions);
         $this->toArrayTaxes($taxes);
 
         # ASSERT

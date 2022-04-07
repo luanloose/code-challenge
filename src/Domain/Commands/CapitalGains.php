@@ -15,7 +15,7 @@ $transactions = array_map( fn (array $transaction) => new Transaction(
 ), json_decode(trim(fgets(STDIN)), true));
 
 $transactionsTaxes = new TransactionTaxesCalculator();
-$taxes = $transactionsTaxes->process($transactions);
+$taxes = $transactionsTaxes->calculate($transactions);
 
 echo PHP_EOL . "\033[0;32mSaida: \033[0m" . PHP_EOL;
 echo json_encode($taxes) . PHP_EOL;

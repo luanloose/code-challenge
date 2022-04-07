@@ -10,7 +10,7 @@ class SellStockCalculator
 {
     public function calculate(Transaction $transaction, StockSummary $stockSummary): Tax
     {
-        $hadLoss = $this->transactionCalculate($stockSummary, $transaction->quantity, $transaction->unitCost);
+        $hadLoss = $this->calculateTransactionGainsOrLosses($stockSummary, $transaction->quantity, $transaction->unitCost);
         $totalSell = $transaction->unitCost * $transaction->quantity;
         $stockSummary->stockQuantity -= $transaction->quantity;
 
@@ -23,7 +23,7 @@ class SellStockCalculator
         return new Tax($tax);
     }
 
-    private function transactionCalculate(
+    private function calculateTransactionGainsOrLosses(
         StockSummary $stockSummary,
         int $stockQuantity,
         float $newWeightedAverage,
@@ -44,13 +44,12 @@ class SellStockCalculator
             $newWeightedAverage,
             $stockQuantity
         );
-
-        $this->deductLoss($stockSummary);
+        $this->deductLosses($stockSummary);
 
         return false;
     }
 
-    private function deductLoss(StockSummary $stockSummary)
+    private function deductLosses(StockSummary $stockSummary)
     {
         if ($stockSummary->loss > $stockSummary->earnings){
             $stockSummary->loss -= $stockSummary->earnings;
