@@ -18,7 +18,7 @@
 
 ### Testes unitários
 1. Para rodar todos testes unitários rode o comando `make phpunit`
-2. Caso queira filtrar por algum específico, pegue o nome do arquivo sem a extensão .php e rode com o comando `make php-filter NomeDaClasse`
+2. Caso queira filtrar por algum específico, pegue o nome do arquivo sem a extensão `.php` e rode com o comando `make php-filter NomeDaClasse`
 
 ### Stack do projeto
 1. Linguagem: PHP 8.1
