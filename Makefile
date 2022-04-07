@@ -35,4 +35,4 @@ bash:
 	@ docker exec -it $(app) sh
 
 run:
-	@ docker exec -it $(app) php index.php
+	@ docker exec -it $(app) php ./src/Domain/Commands/CapitalGains.php
