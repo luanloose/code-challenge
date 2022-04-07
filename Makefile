@@ -3,6 +3,11 @@ no_color=\033[0m
 
 app=app.code-challenge
 
+install:
+	@ docker-compose up -d
+	@ docker exec -it $(app) composer install
+	@ echo "\n$(green)Dependencies are up$(no_color)\n\n"
+
 up:
 	@ docker-compose up -d
 	@ echo "\n$(green)Dependencies are up$(no_color)\n\n"
@@ -28,10 +33,6 @@ phpunit-filter:
 bash:
 	@ docker-compose up -d
 	@ docker exec -it $(app) sh
-
-php:
-	@ docker-compose up -d
-	@ docker exec -it $(app) php bash
 
 run:
 	@ docker exec -it $(app) php index.php

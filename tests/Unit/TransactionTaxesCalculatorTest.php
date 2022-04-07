@@ -132,7 +132,7 @@ Class TransactionTaxesCalculatorTest extends TestCase
 
     private function loadJson(string $name): array
     {
-        $file = __DIR__ . '/../../src/tests/' . $name;
+        $file = __DIR__ . '/../stubs/' . $name;
         return json_decode(file_get_contents($file), true);
     }
 }
