@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  app.code-challenge:
+    container_name: app.code-challenge
+    build: .
+    volumes:
+      - ./:/app

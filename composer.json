@@ -1,0 +1,20 @@
+{
+  "name": "luanloose/code-challenge",
+  "description": "Code Challenge: Ganho de Capital",
+  "require-dev": {
+    "php": "^8.1",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Challenge\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Luan Andrade Loose",
+      "email": "luanloose@hotmail.com"
+    }
+  ]
+}
