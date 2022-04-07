@@ -4,13 +4,14 @@
 
 1. Baixar o projeto.
 2. Rodar o comando `make install` dentro do diretorio do projeto para subir o container da aplicação e instalar as dependências.
-4. Agora vamos rodar o comando `make run` para testes manuais.
-5. Estrutura de exemplo:
-Entrada
+3. Agora vamos rodar o comando `make run` para testes manuais. 
+
+### Estrutura de exemplo:
+* Entrada
 ``` json
 [{"operation":"buy", "unit-cost":10.00, "quantity": 10000},{"operation":"sell", "unit-cost":2.00, "quantity": 5000},{"operation":"sell", "unit-cost":20.00, "quantity": 2000},{"operation":"sell", "unit-cost":20.00, "quantity": 2000},{"operation":"sell", "unit-cost":25.00, "quantity": 1000}]
 ```
-Saída
+* Saída
 ``` json
 [{"tax": 0},{"tax": 0},{"tax": 0},{"tax": 0},{"tax": 3000}]
 ```
