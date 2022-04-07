@@ -11,7 +11,7 @@ Entrada
 [{"operation":"buy", "unit-cost":10.00, "quantity": 10000},{"operation":"sell", "unit-cost":2.00, "quantity": 5000},{"operation":"sell", "unit-cost":20.00, "quantity": 2000},{"operation":"sell", "unit-cost":20.00, "quantity": 2000},{"operation":"sell", "unit-cost":25.00, "quantity": 1000}]
 ```
 Saída
-```
+``` json
 [{"tax": 0},{"tax": 0},{"tax": 0},{"tax": 0},{"tax": 3000}]
 ```
 
