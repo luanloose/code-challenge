@@ -6,16 +6,17 @@ use Challenge\Domain\Services\TransactionTaxesCalculator;
 
 require './vendor/autoload.php';
 
-echo "\033[0;32mInforme o JSON de entrada: \033[0m" . PHP_EOL;
+$line = fgets(STDIN);
+while ($line) {
+    $transactions = array_map(fn(array $transaction) => new Transaction(
+        operation: OperationType::from($transaction['operation']),
+        unitCost: $transaction['unit-cost'],
+        quantity: $transaction['quantity'],
+    ), json_decode($line, true));
 
-$transactions = array_map( fn (array $transaction) => new Transaction(
-    operation: OperationType::from($transaction['operation']),
-    unitCost: $transaction['unit-cost'],
-    quantity: $transaction['quantity'],
-), json_decode(trim(fgets(STDIN)), true));
+    $transactionsTaxes = new TransactionTaxesCalculator();
+    $taxes = $transactionsTaxes->calculate($transactions);
 
-$transactionsTaxes = new TransactionTaxesCalculator();
-$taxes = $transactionsTaxes->calculate($transactions);
-
-echo PHP_EOL . "\033[0;32mSaida: \033[0m" . PHP_EOL;
-echo json_encode($taxes) . PHP_EOL;
+    echo json_encode($taxes) . PHP_EOL;
+    $line = fgets(STDIN);
+}

@@ -36,3 +36,6 @@ bash:
 
 run:
 	@ docker exec -it $(app) php ./src/Domain/Commands/CapitalGains.php
+
+run-file:
+	@ docker exec -i $(app) php ./src/Domain/Commands/CapitalGains.php < $(filter-out $@,$(MAKECMDGOALS))

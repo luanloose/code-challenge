@@ -22,7 +22,7 @@ class BuyStockCalculator
         $stockSummary->stockQuantity += $transaction->quantity;
 
         $stockSummary->weightedAverage = round(
-            (($stockValue) + ($transactionTotalValue)) / ($stockSummary->stockQuantity),
+            (($stockValue + $transactionTotalValue) / $stockSummary->stockQuantity),
             2
         );
     }
