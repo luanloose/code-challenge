@@ -12,13 +12,13 @@ class SellStockCalculator
     {
         $hadLoss = $this->calculateTransactionGainsOrLosses($stockSummary, $transaction->quantity, $transaction->unitCost);
         $totalSell = $transaction->unitCost * $transaction->quantity;
-        $stockSummary->stockQuantity -= $transaction->quantity;
+        $stockSummary->subStockQuantity($transaction->quantity);
 
         if ($hadLoss || $totalSell <= 20000) {
             return new Tax();
         }
 
-        $tax = $stockSummary->earnings * 0.20;
+        $tax = $stockSummary->getEarnings() * 0.20;
 
         return new Tax($tax);
     }
@@ -28,36 +28,25 @@ class SellStockCalculator
         int $stockQuantity,
         float $newWeightedAverage,
     ): bool {
-        $oldWeightedAverage = $stockSummary->weightedAverage;
+        $oldWeightedAverage = $stockSummary->getWeightedAverage();
 
         if ($oldWeightedAverage > $newWeightedAverage) {
-            $stockSummary->loss = $this->calculateAmountOfMoney(
+            $loss = $this->calculateAmountOfMoney(
                 $oldWeightedAverage,
                 $newWeightedAverage,
                 $stockQuantity
             );
+            $stockSummary->setLoss($loss);
             return true;
         }
-
-        $stockSummary->earnings = $this->calculateAmountOfMoney(
+        $earnings = $this->calculateAmountOfMoney(
             $oldWeightedAverage,
             $newWeightedAverage,
             $stockQuantity
         );
-        $this->deductLosses($stockSummary);
 
+        $stockSummary->setEarnings($earnings);
         return false;
-    }
-
-    private function deductLosses(StockSummary $stockSummary)
-    {
-        if ($stockSummary->loss > $stockSummary->earnings){
-            $stockSummary->loss -= $stockSummary->earnings;
-            $stockSummary->earnings = 0;
-        } else {
-            $stockSummary->earnings -= $stockSummary->loss;
-            $stockSummary->loss = 0;
-        }
     }
 
     private function calculateAmountOfMoney(

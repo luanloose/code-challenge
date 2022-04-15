@@ -16,16 +16,18 @@ class BuyStockCalculator
 
     public function weightedAverageCalculator(Transaction $transaction, StockSummary $stockSummary): void
     {
-        $stockValue = $stockSummary->stockQuantity * $stockSummary->weightedAverage;
+        $stockValue = $stockSummary->getStockValue();
         $transactionTotalValue = $transaction->quantity * $transaction->unitCost;
 
-        $stockSummary->stockQuantity += $transaction->quantity;
+        $stockSummary->sumStockQuantity($transaction->quantity);
 
-        $stockSummary->weightedAverage = floatval(
-            bcdiv(
-                strval($stockValue + $transactionTotalValue),
-                strval($stockSummary->stockQuantity),
-                2)
+        $stockSummary->setWeightedAverage(
+            floatval(
+                bcdiv(
+                    strval($stockValue + $transactionTotalValue),
+                    strval($stockSummary->getStockQuantity()),
+                    2)
+            )
         );
     }
 }
