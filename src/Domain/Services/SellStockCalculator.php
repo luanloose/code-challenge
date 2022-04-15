@@ -18,7 +18,7 @@ class SellStockCalculator
             return new Tax();
         }
 
-        $tax = abs($stockSummary->earnings) * 0.20;
+        $tax = $stockSummary->earnings * 0.20;
 
         return new Tax($tax);
     }

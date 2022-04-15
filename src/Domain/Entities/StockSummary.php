@@ -11,4 +11,15 @@ class StockSummary
         public int $stockQuantity = 0,
     ) {
     }
+
+    // Avaliar se faz sentido criar esses métodos
+    //resetLoss
+    //resetEarnings
+    //setLoss
+    //setEarnings
+    //setWeightedAverage
+    //decrementsLoss
+    //decrementsEarnings
+    //decrementsStockQuantity
+    //incrementsStockQuantity
 }
