@@ -110,5 +110,4 @@ tests/ #-> Pasta com tudo relacionado aos Testes.
   ├──Unit/ #-> Testes unitários.
   │    ├── Domain/ #-> Testes relacionados ao Dominio.
   │    └── BaseTest.php #-> Super classe base para todos os testes.
-
 ```
