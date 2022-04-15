@@ -6,8 +6,7 @@ use Challenge\Domain\Services\TransactionTaxesCalculator;
 
 require './vendor/autoload.php';
 
-$line = fgets(STDIN);
-while ($line) {
+while ($line = fgets(STDIN)) {
     $transactions = array_map(fn(array $transaction) => new Transaction(
         operation: OperationType::from($transaction['operation']),
         unitCost: $transaction['unit-cost'],
@@ -18,5 +17,4 @@ while ($line) {
     $taxes = $transactionsTaxes->calculate($transactions);
 
     echo json_encode($taxes) . PHP_EOL;
-    $line = fgets(STDIN);
 }

@@ -65,7 +65,12 @@ class SellStockCalculator
         float $newWeightedAverage,
         int $stockQuantity
     ): float {
-        $total = round(($oldWeightedAverage - $newWeightedAverage) * $stockQuantity, 2);
+        $total = floatval(
+            bcmul(
+                strval($oldWeightedAverage - $newWeightedAverage),
+                strval($stockQuantity),
+                2)
+        );
         return abs($total);
     }
 }

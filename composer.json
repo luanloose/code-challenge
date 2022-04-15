@@ -16,5 +16,8 @@
       "name": "Luan Andrade Loose",
       "email": "luanloose@hotmail.com"
     }
-  ]
+  ],
+  "require": {
+    "ext-bcmath": "*"
+  }
 }

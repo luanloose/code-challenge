@@ -16,7 +16,7 @@ De acordo com as regras de negócio descritas no documento, cada processo tem se
 1. Baixar o projeto.
 2. Rodar o comando `make install` dentro do diretorio do projeto para subir o container da aplicação e instalar as dependências.
 
-Agora vc tem das opções:
+Agora vc tem duas opções:
 1. Rodar manualmente:
    * Rodar o comando `make run`.
    * Realizar o envio do input, abaixo deixo o exemplo que pode ser usado.
