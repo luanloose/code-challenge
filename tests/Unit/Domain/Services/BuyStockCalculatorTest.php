@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Domain\Services;
 
 use Challenge\Domain\Entities\StockSummary;
 use Challenge\Domain\Entities\Transaction;

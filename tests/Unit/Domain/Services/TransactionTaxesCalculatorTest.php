@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Domain\Services;
 
 use Challenge\Domain\Entities\Transaction;
 use Challenge\Domain\Enums\OperationType;
@@ -43,22 +43,6 @@ Class TransactionTaxesCalculatorTest extends BaseTest
         # ASSERT
         self::assertEquals([["tax" => 0],["tax" => 0],["tax" => 0]], $taxesOne);
         self::assertEquals([["tax" => 0],["tax" => 10000],["tax" => 0]], $taxesTwo);
-    }
-
-    private function prepareInput(array $transactions): array
-    {
-         return array_map( fn (array $transaction) => new Transaction(
-            operation: OperationType::from($transaction['operation']),
-            unitCost: $transaction['unit-cost'],
-            quantity: $transaction['quantity'],
-        ), $transactions);
-    }
-
-    private function toArrayTaxes(array &$taxes)
-    {
-        foreach ($taxes as &$tax) {
-            $tax = (array) $tax;
-        }
     }
 
     /**
@@ -132,7 +116,23 @@ Class TransactionTaxesCalculatorTest extends BaseTest
 
     private function loadJson(string $name): array
     {
-        $file = __DIR__ . '/../stubs/' . $name;
+        $file = __DIR__ . '/../../../stubs/' . $name;
         return json_decode(file_get_contents($file), true);
+    }
+
+    private function prepareInput(array $transactions): array
+    {
+        return array_map( fn (array $transaction) => new Transaction(
+            operation: OperationType::from($transaction['operation']),
+            unitCost: $transaction['unit-cost'],
+            quantity: $transaction['quantity'],
+        ), $transactions);
+    }
+
+    private function toArrayTaxes(array &$taxes)
+    {
+        foreach ($taxes as &$tax) {
+            $tax = (array) $tax;
+        }
     }
 }
