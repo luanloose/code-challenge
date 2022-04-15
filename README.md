@@ -104,9 +104,9 @@ src/ #-> Código fonte
   │          └── CapitalGains.php #-> Arquivo "porta de entrada" para a aplicação.
 
 tests/ #-> Pasta com tudo relacionado aos Testes.
-  ├──stubs/ #-> Casos de utilização propostos no desafio do 1 ao 6 (Usados nos testes).
-  │    ├── input-{1...6} #-> entrada de cada caso.
-  │    └── output-{1...6} #-> saída de cada caso.
+  ├──stubs/ #-> Casos de utilização propostos no desafio do 1 ao 8 (Usados nos testes).
+  │    ├── input{1...8}.json #-> entrada de cada caso.
+  │    └── output{1...8}.json #-> saída de cada caso.
   ├──Unit/ #-> Testes unitários.
   │    ├── Domain/ #-> Testes relacionados ao Dominio.
   │    └── BaseTest.php #-> Super classe base para todos os testes.
