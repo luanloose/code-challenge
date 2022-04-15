@@ -99,7 +99,7 @@ src/ #-> Código fonte
   │          ├──BuyStockCalculator.php #-> Calculo de compra.
   │          ├──SellCalculator.php #-> Calculo de venda.
   │          └──TransactionTaxesCalculator.php #-> Calcula a taxa baseado na operação.  
-  │  Infrastructure/
+  ├──Infrastructure/
   │     └── Commands/
   │          └── CapitalGains.php #-> Arquivo "porta de entrada" para a aplicação.
 
