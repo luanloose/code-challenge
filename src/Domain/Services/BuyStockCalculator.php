@@ -10,24 +10,25 @@ class BuyStockCalculator
 {
     public function calculate(Transaction $transaction, StockSummary $stockSummary): Tax
     {
-        $this->weightedAverageCalculator($transaction, $stockSummary);
-        return new Tax();
-    }
-
-    public function weightedAverageCalculator(Transaction $transaction, StockSummary $stockSummary): void
-    {
         $stockValue = $stockSummary->getStockValue();
         $transactionTotalValue = $transaction->quantity * $transaction->unitCost;
 
         $stockSummary->sumStockQuantity($transaction->quantity);
 
+        $stockQuantity = $stockSummary->getStockQuantity();
+
         $stockSummary->setWeightedAverage(
-            floatval(
-                bcdiv(
-                    strval($stockValue + $transactionTotalValue),
-                    strval($stockSummary->getStockQuantity()),
-                    2)
-            )
+            $this->weightedAverageCalculator($stockValue, $transactionTotalValue, $stockQuantity)
         );
+
+        return new Tax();
+    }
+
+    private function weightedAverageCalculator(
+        float $stockValue,
+        float $transactionTotalValue,
+        float $stockQuantity
+    ): float {
+        return floatval( bcdiv( strval($stockValue + $transactionTotalValue), strval($stockQuantity), 2));
     }
 }

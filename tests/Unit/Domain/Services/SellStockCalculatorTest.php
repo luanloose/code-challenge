@@ -15,7 +15,7 @@ Class SellStockCalculatorTest extends BaseTest
      * @test
      * @dataProvider dataProviderWithCases
      */
-    public function caseTest(array $input, array $stockSummary, array $expected)
+    public function shouldPassInAllCases(array $input, array $stockSummary, array $expected)
     {
         # INPUT
         $transaction = new Transaction(

@@ -13,4 +13,6 @@ _reports/
 phpunit.report.xml
 phpunit.coverage.xml
 
+#Others
 .DS_Store
+docker-compose.override.yml
