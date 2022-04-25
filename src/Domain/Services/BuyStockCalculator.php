@@ -5,9 +5,15 @@ namespace Challenge\Domain\Services;
 use Challenge\Domain\Entities\StockSummary;
 use Challenge\Domain\Entities\Tax;
 use Challenge\Domain\Entities\Transaction;
+use Challenge\Domain\Utils\WeightedAverageCalculator;
 
 class BuyStockCalculator
 {
+    public function __construct(
+        private WeightedAverageCalculator $weightedAverageCalculator = new WeightedAverageCalculator()
+    ) {
+    }
+
     public function calculate(Transaction $transaction, StockSummary $stockSummary): Tax
     {
         $stockValue = $stockSummary->getStockValue();
@@ -17,18 +23,14 @@ class BuyStockCalculator
 
         $stockQuantity = $stockSummary->getStockQuantity();
 
-        $stockSummary->setWeightedAverage(
-            $this->weightedAverageCalculator($stockValue, $transactionTotalValue, $stockQuantity)
+        $weightedAverage = $this->weightedAverageCalculator->calculate(
+            $stockValue,
+            $transactionTotalValue,
+            $stockQuantity
         );
 
-        return new Tax();
-    }
+        $stockSummary->setWeightedAverage($weightedAverage);
 
-    private function weightedAverageCalculator(
-        float $stockValue,
-        float $transactionTotalValue,
-        float $stockQuantity
-    ): float {
-        return floatval( bcdiv( strval($stockValue + $transactionTotalValue), strval($stockQuantity), 2));
+        return new Tax();
     }
 }

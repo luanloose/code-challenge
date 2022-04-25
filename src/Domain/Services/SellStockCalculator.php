@@ -5,11 +5,17 @@ namespace Challenge\Domain\Services;
 use Challenge\Domain\Entities\StockSummary;
 use Challenge\Domain\Entities\Tax;
 use Challenge\Domain\Entities\Transaction;
+use Challenge\Domain\Utils\StockPortifolioCalculator;
 
 class SellStockCalculator
 {
     const MAX_EARNING_WITHOUT_TAX = 20000;
     const TAX_PERCENTAGE = 0.20;
+
+    public function __construct(
+        private StockPortifolioCalculator $stockPortifolioCalculator = new StockPortifolioCalculator()
+    ) {
+    }
 
     public function calculate(Transaction $transaction, StockSummary $stockSummary): Tax
     {
@@ -34,7 +40,7 @@ class SellStockCalculator
         $oldWeightedAverage = $stockSummary->getWeightedAverage();
 
         if ($oldWeightedAverage > $newWeightedAverage) {
-            $loss = $this->calculateAmountOfMoney(
+            $loss = $this->stockPortifolioCalculator->calculate(
                 $oldWeightedAverage,
                 $newWeightedAverage,
                 $stockQuantity
@@ -42,7 +48,7 @@ class SellStockCalculator
             $stockSummary->setLoss($loss);
             return true;
         }
-        $earnings = $this->calculateAmountOfMoney(
+        $earnings = $this->stockPortifolioCalculator->calculate(
             $oldWeightedAverage,
             $newWeightedAverage,
             $stockQuantity
@@ -50,19 +56,5 @@ class SellStockCalculator
 
         $stockSummary->setEarnings($earnings);
         return false;
-    }
-
-    private function calculateAmountOfMoney(
-        float $oldWeightedAverage,
-        float $newWeightedAverage,
-        int $stockQuantity
-    ): float {
-        $total = floatval(
-            bcmul(
-                strval($oldWeightedAverage - $newWeightedAverage),
-                strval($stockQuantity),
-                2)
-        );
-        return abs($total);
     }
 }
