@@ -12,6 +12,7 @@ _reports/
 .phpunit.result.cache
 phpunit.report.xml
 phpunit.coverage.xml
+coverage/
 
 #Others
 .DS_Store

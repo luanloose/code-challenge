@@ -2,57 +2,23 @@
 
 namespace Tests\Unit\Domain\Services;
 
-use Challenge\Domain\Entities\Transaction;
-use Challenge\Domain\Enums\OperationType;
 use Challenge\Domain\Services\TransactionTaxesCalculator;
 use JetBrains\PhpStorm\ArrayShape;
 use Tests\BaseTest;
+use Tests\Utils\ToArray;
 
 Class TransactionTaxesCalculatorTest extends BaseTest
 {
-    /**
-     * @test
-     */
-    public function caseOnePlusTwoTest()
-    {
-        # INPUT / SETUP
-        $transactionsOne = [
-            ["operation" =>"buy", "unit-cost" =>10.00, "quantity" => 100],
-            ["operation" =>"sell", "unit-cost" =>15.00, "quantity" => 50],
-            ["operation" =>"sell", "unit-cost" =>15.00, "quantity" => 50]
-        ];
-
-        $transactionsTwo = [
-            ["operation" =>"buy", "unit-cost" =>10.00, "quantity" => 10000],
-            ["operation" =>"sell", "unit-cost" =>20.00, "quantity" => 5000],
-            ["operation" =>"sell", "unit-cost" =>5.00, "quantity" => 5000]
-        ];
-
-        $transactionsOne = $this->prepareInput($transactionsOne);
-        $transactionsTwo = $this->prepareInput($transactionsTwo);
-
-        $transactionsTaxes = new TransactionTaxesCalculator();
-
-        # EXECUTE
-        $taxesOne = $transactionsTaxes->calculate($transactionsOne);
-        $taxesTwo = $transactionsTaxes->calculate($transactionsTwo);
-
-        $this->toArrayTaxes($taxesOne);
-        $this->toArrayTaxes($taxesTwo);
-
-        # ASSERT
-        self::assertEquals([["tax" => 0],["tax" => 0],["tax" => 0]], $taxesOne);
-        self::assertEquals([["tax" => 0],["tax" => 10000],["tax" => 0]], $taxesTwo);
-    }
+    use ToArray;
 
     /**
      * @test
      * @dataProvider dataProviderWithCases
      */
-    public function allCasesTest(array $input, array $expected)
+    public function allCasesTest(array $transactions, array $expected)
     {
         # INPUT / SETUP
-        $transactions = $this->prepareInput($input);
+        $transactions = $this->toArrayTransaction($transactions);
 
         $transactionsTaxes = new TransactionTaxesCalculator();
 
@@ -80,59 +46,21 @@ Class TransactionTaxesCalculatorTest extends BaseTest
     {
         return [
             'case one' => [
-                'input' => $this->loadJson('input/case1.json'),
-                'expected' => $this->loadJson('output/case1.json')
+                'transactions' => [
+                    ["operation" =>"buy", "unit-cost" =>10.00, "quantity" => 100],
+                    ["operation" =>"sell", "unit-cost" =>15.00, "quantity" => 50],
+                    ["operation" =>"sell", "unit-cost" =>15.00, "quantity" => 50]
+                ],
+                'expected' => [["tax" => 0],["tax" => 0],["tax" => 0]]
             ],
             'case two' => [
-                'input' => $this->loadJson('input/case2.json'),
-                'expected' => $this->loadJson('output/case2.json')
-            ],
-            'case three' => [
-                'input' => $this->loadJson('input/case3.json'),
-                'expected' => $this->loadJson('output/case3.json')
-            ],
-            'case four' => [
-                'input' => $this->loadJson('input/case4.json'),
-                'expected' => $this->loadJson('output/case4.json')
-            ],
-            'case five' => [
-                'input' => $this->loadJson('input/case5.json'),
-                'expected' => $this->loadJson('output/case5.json')
-            ],
-            'case six' => [
-                'input' => $this->loadJson('input/case6.json'),
-                'expected' => $this->loadJson('output/case6.json')
-            ],
-            'case seven' => [
-                'input' => $this->loadJson('input/case7.json'),
-                'expected' => $this->loadJson('output/case7.json')
-            ],
-            'case eight' => [
-                'input' => $this->loadJson('input/case8.json'),
-                'expected' => $this->loadJson('output/case8.json')
+                'transactions' => [
+                    ["operation" =>"buy", "unit-cost" =>10.00, "quantity" => 10000],
+                    ["operation" =>"sell", "unit-cost" =>20.00, "quantity" => 5000],
+                    ["operation" =>"sell", "unit-cost" =>5.00, "quantity" => 5000]
+                ],
+                'expected' => [["tax" => 0],["tax" => 10000],["tax" => 0]]
             ],
         ];
-    }
-
-    private function loadJson(string $name): array
-    {
-        $file = __DIR__ . '/../../../stubs/' . $name;
-        return json_decode(file_get_contents($file), true);
-    }
-
-    private function prepareInput(array $transactions): array
-    {
-        return array_map( fn (array $transaction) => new Transaction(
-            operation: OperationType::from($transaction['operation']),
-            unitCost: $transaction['unit-cost'],
-            quantity: $transaction['quantity'],
-        ), $transactions);
-    }
-
-    private function toArrayTaxes(array &$taxes)
-    {
-        foreach ($taxes as &$tax) {
-            $tax = (array) $tax;
-        }
     }
 }

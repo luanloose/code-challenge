@@ -42,7 +42,7 @@ bash:
 	@ docker exec -it $(app) sh
 
 run:
-	@ docker exec -it $(app) php ./src/Infrastructure/Commands/CapitalGains.php
+	@ docker exec -it $(app) php ./CapitalGains.php
 
 run-file:
-	@ docker exec -i $(app) php ./src/Infrastructure/Commands/CapitalGains.php < $(filter-out $@,$(MAKECMDGOALS))
+	@ docker exec -i $(app) php ./CapitalGains.php < $(filter-out $@,$(MAKECMDGOALS))
